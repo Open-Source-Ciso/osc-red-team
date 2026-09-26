@@ -1,0 +1,19 @@
+{
+  "engagement": "osc-demo-lab",
+  "authorization": "demo-only-local",
+  "in_scope": {
+    "hosts": ["127.0.0.1:8080", "localhost:8080"],
+    "check_types": ["http_get", "http_header", "config_assert"]
+  },
+  "out_of_scope": [
+    "Any host not listed in in_scope.hosts",
+    "Credential stuffing / password spraying",
+    "Exploit payload generation",
+    "Denial of service"
+  ],
+  "business_context": {
+    "app": "osc-demo-payments",
+    "data_class": "staging faux PII",
+    "ai_surface": "none in lab; retainer adds agent/MCP packs"
+  }
+}
