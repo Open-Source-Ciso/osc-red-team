@@ -25,18 +25,33 @@ Competitors (Giskard, Adversa, AccuKnox, DeepTeam, etc.) mostly sell **AI-system
 
 ## Quick start (demo)
 
-```bash
-# 1. Run the intentionally misconfigured lab app (authorized demo target)
-cd demo/lab-app && python -m http.server 8080 &
+**Junior developers:** follow the full checklist → **[docs/RUN_THE_DEMO.md](docs/RUN_THE_DEMO.md)**  
+(clone, two terminals, insecure → cycle → secure → verify, troubleshooting).
 
-# 2. Run one Attack → Defend cycle against the lab (offline stubs; no API keys required)
-cd demo/orchestrator
-python run_cycle.py --target lab --mode stub
+One-shot from repo root (no API keys):
+
+```bash
+chmod +x demo/run_demo.sh
+./demo/run_demo.sh
 ```
 
-Artifacts land in `demo/artifacts/` (findings, remediations, verification report).
+Manual (two terminals):
 
-See [docs/DEMO_NARRATIVE.md](docs/DEMO_NARRATIVE.md) for the company pitch walkthrough.
+```bash
+# Terminal A — intentionally misconfigured lab
+python3 demo/lab-app/server.py
+
+# Terminal B — Attack → Defend cycle (stub Claude + stub Codex)
+python3 demo/orchestrator/run_cycle.py --target lab --mode stub
+
+# Terminal A: Ctrl+C, then restart hardened:
+LAB_SECURE=1 python3 demo/lab-app/server.py
+
+# Terminal B — prove fixes closed
+python3 demo/orchestrator/run_cycle.py --verify-only
+```
+
+Artifacts land in `demo/artifacts/`. Pitch talk track: [docs/DEMO_NARRATIVE.md](docs/DEMO_NARRATIVE.md).
 
 ## Docs
 
@@ -48,6 +63,7 @@ See [docs/DEMO_NARRATIVE.md](docs/DEMO_NARRATIVE.md) for the company pitch walkt
 | [Demo narrative](docs/DEMO_NARRATIVE.md) | 15-minute internal / customer demo script |
 | [Roadmap](docs/ROADMAP.md) | Forward-looking capability plan |
 | [One-pager](docs/ONE_PAGER.md) | Internal / sales leave-behind |
+| [Run the demo](docs/RUN_THE_DEMO.md) | Step-by-step for developers (start here) |
 
 ## Repo layout
 
